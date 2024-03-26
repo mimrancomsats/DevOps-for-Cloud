@@ -1,0 +1,150 @@
+
+Some preprocessing
+1. sudo bash
+2. apt install docker-compose
+3. docker-compose -v
+
+
+Running Wordpress application using docker-compose
+-----------------------------------------------------
+1. mkdir wordpress
+2. cd wordpress
+3. nano docker-compose.yml
+4. Paste following content in the file created in Step 3.
+
+version: '3.1'
+
+services:
+
+  wordpress:
+    image: wordpress
+    restart: always
+    ports:
+      - 8080:80
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: exampleuser
+      WORDPRESS_DB_PASSWORD: examplepass
+      WORDPRESS_DB_NAME: exampledb
+    volumes:
+      - wordpress:/var/www/html
+
+  db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_DATABASE: exampledb
+      MYSQL_USER: exampleuser
+      MYSQL_PASSWORD: examplepass
+      MYSQL_RANDOM_ROOT_PASSWORD: '1'
+    volumes:
+      - db:/var/lib/mysql
+
+volumes:
+  wordpress:
+  db:
+
+5. docker-compose up -d
+6. docker-compose images
+7. docker-compose ps
+8. Use EC2 public IP with 8080 port to access the application
+9. docker-compose down
+
+Running Odoo application in Docker Containers
+-----------------------------------------------------
+1. mkdir odoo
+2. cd odoo
+3. nano docker-compose.yml
+4. Paste following content in the file created in Step 3.
+
+version: '3.1'
+services:
+  web:
+    image: odoo:16.0
+    depends_on:
+      - mydb
+    ports:
+      - "8069:8069"
+    environment:
+    - HOST=mydb
+    - USER=odoo
+    - PASSWORD=myodoo
+  mydb:
+    image: postgres:15
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_PASSWORD=myodoo
+      - POSTGRES_USER=odoo
+
+5. docker-compose up -d
+6. docker-compose images
+7. docker-compose ps
+8. Use EC2 public IP with 8069 port to access the application
+9. docker-compose down
+
+Creating an Image within Docker Compose file
+-----------------------------------------------------
+1. mkdir phpapp
+2. cd phpapp
+3. Create a file index.php and paste following code inside it.
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sample PHP Page</title>
+</head>
+<body>
+    <h1>Hello, World!</h1>
+    
+    <?php
+    // PHP code starts here
+    $name = "John";
+    $age = 30;
+    ?>
+    
+    <p>Welcome, <?php echo $name; ?>!</p>
+    <p>You are <?php echo $age; ?> years old.</p>
+</body>
+</html>
+
+4. Create dockerfile and paste following code inside it to create an image.
+
+FROM php:7.4-apache
+
+RUN apt-get update
+WORKDIR /var/www/html
+
+COPY index.php .
+
+5. Create docker-compose.yml file and paste following code inside it to create an image.
+
+version: '3.8'
+
+services:
+  php-apache:
+    build: .
+    ports:
+      - "8080:80"
+    depends_on:
+      - mysql
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_USER: root
+      MYSQL_PASSWORD: example
+      MYSQL_DATABASE: php_app
+
+  mysql:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+      MYSQL_DATABASE: php_app
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+volumes:
+  mysql-data:
+
+6. docker-compose up -d
+7. Use EC2 public IP with 8080 port to access the application
