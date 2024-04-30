@@ -107,7 +107,7 @@ Install Docker on your EC2 machine.
 Install Docker Pipeline Plugin
 -----------------------------------------------------
 1. In the Jenkins Dashbard, click on Manage Jenkins option in left panel
-2. Click on Plugins section.
+2. Click on Plugins option in System Configuration section.
 3. Click on Available Plugins option in left panel.
 4. In the serach bar, type Docker Pipeline.
 5. Click on the checkbox adjacent to Docker Pipeline.
