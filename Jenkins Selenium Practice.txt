@@ -18,6 +18,12 @@ Install Google Chrome Driver for handling Programmatic requests from Selenium We
 5. sudo chown root:root /usr/bin/chromedriver
 6. sudo chmod +x /usr/bin/chromedriver
 
+In case if the above mentioned steps are not working then 
+1. Go to https://googlechromelabs.github.io/chrome-for-testing/#stable.
+2. The Stable Channel column will display the latest Google Chrome version. Click on the hyperlink,
+3. It will take you to the relevant section within the WebPage.
+4. Carefully select chromedrvier for your platform (Ein64, Linux64 etc.), copy the complete URL and replace it with the URL in step 2 of this section after the wget command.
+
 
 Install pip - package manager for Python packages
 -----------------------------------------------------
