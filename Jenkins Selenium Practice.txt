@@ -7,11 +7,11 @@ Install Headless Google Chrome Browser on your EC2 machine.
 4. sudo apt-get install -f
 5. google-chrome –version
 6. After running the above command, you may get the following output. Copy Chrome version with yourself for later use.
-   Google Chrome 124.0.6367.118
+   Google Chrome 124.0.6367.201
 
 Install Google Chrome Driver for handling Programmatic requests from Selenium WebDriver
 -----------------------------------------------------
-1. wget https://storage.googleapis.com/chrome-for-testing-public/124.0.6367.91/linux64/chromedriver-linux64.zip
+1. wget https://storage.googleapis.com/chrome-for-testing-public/124.0.6367.201/linux64/chromedriver-linux64.zip
 2. sudo apt install unzip
 3. unzip chromedriver-linux64.zip
 4. sudo mv chromedriver-linux64 /usr/bin/chromedriver
